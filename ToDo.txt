@@ -1,0 +1,229 @@
+item component
+	v label
+	v props text
+	v box
+
+utils functions
+	v processProps
+
+item component
+	v stack layout
+	v stylize props
+
+
+display base project
+	v create new state
+	v load items
+	
+x Bootstrap
+v Vuetify
+
+v inverse_prop
+v member
+
+v add blueprints to items
+	direct blueprints + superitems of them
+
+v create the blueprint and prop data
+
+flip blueprint filtering system to show by default
+
+v create base Spread config
+	v filter item by blueprints
+
+	design
+		v blueprint
+			item color
+				default light grey
+				prop light blue
+				value type light orange
+			label size
+			
+			
+
+v Left Panel
+	Spreads
+	items
+
+how to display the multi level config <- make it only one level
+reduce height
+v semi auto populate based on data
+
+
+==============================
+
+v dimensions should be available after mount and update, now it's only available after animation
+v split position and dimensions so only one needs to be updated
+
+New resolver
+v resolve overlap, using width and height
+
+v reactivate drag
+
+v Animation to grid
+v Drag and zoom spread view
+
+trigger layout resolver only when necessary
+	items change
+	items' size changed
+	v end drag
+	pause drag (don't move the dragged one)
+
+---------------------------------------
+
+
+v Save position
+
+
+v reactivate connector drawer
+v Connection end
+v Connection to top
+v Connection curve
+
+---------------------------------------
+
+create new project
+	include base project
+
+Left Panel
+	Items
+
+	Hover & highlight
+	Select and display properties on Editor
+	Change
+		texts
+		item picker
+		save
+
+	collect blueprints from own and directly included projects at the top
+	create item from blueprint
+
+	select blueprint
+	add props
+		picker
+		create prop
+	delete prop
+	save
+
+Input from sheet
+Output to sheet
+Live pairing
+Input from trello
+Output to trello
+Live pairing
+Live pair sheet + trello
+
+---------------------------------------
+
+move sidebar buttons
+add settings button
+
+Project management
+Spread management
+
+
+
+load saved position on mount
+redraw connections on any change
+resize svg following display
+pan & zoom svg
+Limit pan to content
+Animation resizes and moves the spread view
+pan & zoom background
+	change background on extreme zooms if needed
+
+------------------------------------
+
+Spawn with calculated position
+	- if aligned
+		- assign to alignment group(s)
+		- resolve sorts
+		- then resolve aligns
+		- resolve overlap in alignment groups one by one, while moving with the other group
+	- combine all the forces
+
+animate
+	- if algined in one axis, only move in the other axis
+	- aligned groups "move" in aligned axis (average of all members)
+	- others move freely while repelling items in radius
+
+end
+	- de-overlap
+	- snap to grid
+
+
+
+
+utils functions
+	isFromBlueprint
+	getValueBlueprints
+	inverse prop functions
+
+
+	forces
+		v prevent overlap only when others are done
+
+		save itemPositions to store
+
+		gradient
+
+		problems
+			chasing
+			locked / entangled
+			unknown forces
+			uncentered result
+			balancing force strengths
+			slow
+
+		ideas
+			add range (defaults to [infinity, infinity])
+			snap to grid
+			get next from displayed properties first
+			calculate starting placement
+			force texts
+			more complicated timed phases:
+				rules + gradient distance,
+				expand + random + no overlap + to left & below of Spreadport,
+				repeat
+			more complicated timed phases:
+				rules,
+				expand + random + no overlap,
+				rules,
+				all + contract + center,
+				manual repeat
+			+manual drag 
+			saved coords per Spread
+
+	props connector
+		v activeEntities -> refresh elements + redraw lines
+		- pick connection placement
+		- calculate edge placement
+			- refactor
+			- also for target
+		
+		v design with start and end
+		v itemPositions -> redraw lines
+		- Spread config -> redraw lines
+		
+		- dynamic svg size
+		- svg follows scroll
+
+	- differentiate between live entities, active entities, and shown/hidden entities
+
+- change included to included in (top down)
+	- test with other project
+	- create index
+
+Fill prop based on placement in Spread
+Modify Spread config based on item placements
+Visualize forces
+Spread templates
+	Grid
+	Mapping
+	Cloud
+	Flow+Category
+	Timeline
+
+Expand items
+	base item / expansion
+	expand set of items from another project with additional props
