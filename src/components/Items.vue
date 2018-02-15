@@ -1,5 +1,6 @@
 <template>
-  <div id='items'
+  <div
+    id='items'
     :style="{
       'transform-origin':
         scale.x +'px '+
@@ -79,6 +80,7 @@ export default {
     //   console.log('spreadConfig');
     //   this.animateForce ()
     // },
+
     itemDragged () {
       if(this.itemDragged)
         layoutResolver.stop()
@@ -263,12 +265,13 @@ export default {
 
       // TODO add default values to the force config
       layoutResolver.animate(
+        this.$props.activeItems,
         this.itemData,
         this.$store.getters['item/positions'],
         this.$store.getters['item/displayData'],
         config,
         (payload) => this.$store.dispatch(
-          'item/setPosition',
+          'item/setTargetPosition',
           payload
         ),
         (payload) => this.$store.dispatch(
@@ -286,5 +289,8 @@ export default {
 <style>
 #items {
   transform-origin: 700px 700px;
+}
+.move-move {
+  transition: transform 1s;
 }
 </style>

@@ -54,7 +54,7 @@ export default {
 
   computed: {
     spreadsByProjects () {
-      return this.$store.getters['spread/byProject']
+      return this.$store.getters['spread/infos']
     },
     selection () {
       return this.$store.getters['spread/selection']

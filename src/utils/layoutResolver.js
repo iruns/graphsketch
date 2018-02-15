@@ -1,13 +1,14 @@
 import _ from 'lodash'
 
 const MIN_SPEED = .3
-const MAX_SPEED = 20
+const MAX_SPEED = 50
 
 let paused = false
 let timeoutFunc
 let tick = () => {console.log("NOT STARTED")}
 
 function animate(
+  ids,
   itemData, itemPositions, itemDisplayData,
   config,
   setItemPosition, saveItemPositions
@@ -18,7 +19,6 @@ function animate(
 
   const nodes = {}
   let forces = {}
-  const ids = _.keys(itemDisplayData)
 
   // if there are actually stuff to animate
   if(ids.length > 0){
@@ -150,7 +150,6 @@ function animate(
         })
       }
 
-
       let going = false
 
       // for (let n = 0; n <= lastNode; n++) {
@@ -211,7 +210,7 @@ function animate(
       // console.log('------',frames);
 
       if(going && frames < 50 && !paused)
-        timeoutFunc = setTimeout(tick, 1000/20)
+        timeoutFunc = setTimeout(tick, 1000/100)
       // if ending, save positiond
       else{
         const positions = {}

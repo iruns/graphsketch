@@ -3,10 +3,10 @@
     <v-card-text>
       <h4>Patterns</h4>
       <itemDesign
-        v-for="(bpSet, bpId) in config.patterns"
-        :key="'item-design-'+bpId"
-        :name="'item-design-'+bpId"
-        :config="bpSet"
+        v-for="(patternSet, patternId) in config.patterns"
+        :key="'item-design-'+patternId"
+        :name="'item-design-'+patternId"
+        :config="patternSet"
         :setValue="setValue"
         :changeBy="changeBy"
         :colors="colors"

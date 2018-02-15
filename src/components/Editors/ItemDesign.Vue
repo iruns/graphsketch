@@ -10,19 +10,19 @@
           @click="toggleDropdown(config.id+'-hue')"
           :class="['dropbtn',config.hue]"
         >
-          {{ config.hue }}
+
         </button>
         <div
           :id="config.id+'-hue'"
           class="dropdown-content"
         >
-          <div
+          <a
             v-for="hue in colors.hues"
             @click="setValue(['design','patterns',config.id,'hue'],hue)"
-            :class="[hue,'color-box']"
+            :class="['color-box',hue]"
           >
-            {{ hue }}
-          </div>
+
+          </a>
         </div>
       </div>
       <div class="dropdown">
@@ -30,7 +30,7 @@
           @click="toggleDropdown(config.id+'-lightness')"
           :class="['dropbtn',config.hue,config.lightness]"
         >
-          {{ config.lightness }}
+        
         </button>
         <div
           :id="config.id+'-lightness'"
@@ -39,9 +39,9 @@
           <a
             v-for="lightness in colors.lightness"
             @click="setValue(['design','patterns',config.id,'lightness'],lightness)"
-            :class="[config.hue,lightness]"
+            :class="['lightness-box',config.hue,lightness]"
           >
-            {{ lightness }}
+
           </a>
         </div>
 

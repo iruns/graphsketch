@@ -171,12 +171,17 @@ export default {
 
                     target.x -= source.x
                     target.y -= source.y
+                    const length = Math.sqrt(
+                      (target.x * target.x) +
+                      (target.y * target.y)
+                    )
+
                     connections.push({
 
                       d: "M "+source.x+
                         " "+source.y+
                         " q "+ target.x/2+
-                        " "+ (target.y/2 - 25)+
+                        " "+ (target.y/2 - (length*.2))+
                         " "+ target.x+
                         " "+ target.y,
                         // " l "+ target.x+

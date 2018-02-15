@@ -18,6 +18,9 @@ export default {
       displayData: {
 
       },
+      targetPositions: {
+
+      },
       positions: {
 
       },
@@ -111,6 +114,8 @@ export default {
     },
 
     displayData: (state) => state.displayData,
+
+    targetPositions: (state) => state.targetPositions,
     positions: (state) => state.positions,
 
     dragged: (state) => state.dragged,
@@ -234,11 +239,8 @@ export default {
       }
     },
 
-    setupItems (state, payload) {
-      Vue.set(state, 'positions', payload.positions)
-      Vue.set(state, 'displayData', payload.displayData)
-    },
     setupItem (state, payload) {
+      Vue.set(state.targetPositions, payload.id, payload.targetPositions)
       Vue.set(state.positions, payload.id, payload.position)
       Vue.set(state.displayData, payload.id, payload.displayData)
     },
@@ -248,6 +250,9 @@ export default {
       state.displayData[payload.id] = payload.data
     },
 
+    setTargetPosition (state, payload) {
+      state.targetPositions[payload.id] = payload.data
+    },
     setPosition (state, payload) {
       state.positions[payload.id] = payload.data
     },
@@ -311,9 +316,6 @@ export default {
       context.commit('savePosition', payload)
     },
 
-    setupItems (context, payload) {
-      context.commit('setupItems', payload)
-    },
     setupItem (context, payload) {
       context.commit('setupItem', payload)
     },
@@ -322,6 +324,9 @@ export default {
       context.commit('setDisplayData', payload)
     },
 
+    setTargetPosition (context, payload) {
+      context.commit('setTargetPosition', payload)
+    },
     setPosition (context, payload) {
       context.commit('setPosition', payload)
     },

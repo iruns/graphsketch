@@ -3,26 +3,26 @@
     <v-card-text>
       <h4>Patterns</h4>
       <v-chip
-        v-for="bpSet in config.patterns"
-        :key="'chip-'+bpSet.ref.id"
+        v-for="patternSet in config.patterns"
+        :key="'chip-'+patternSet.ref.id"
         small label
-        :text-color="bpSet.isOn?'white':'grey darken-4'"
-        :color="bpSet.isOn?'teal':'grey lighten-3'"
-        @click="toggle(['filters','patterns',bpSet.ref.id,'isOn'])"
+        :text-color="patternSet.isOn?'white':'grey darken-4'"
+        :color="patternSet.isOn?'teal':'grey lighten-3'"
+        @click="toggle(['filters','patterns',patternSet.ref.id,'isOn'])"
         class="item-chip"
       >
-        {{ bpSet.ref.label }}
+        {{ patternSet.ref.label }}
       </v-chip>
       <!-- <h4>Values</h4>
       <div
-        v-for="bpSet in bpSet"
-        v-if="bpSet.isOn"
-        :key="'value'+bpSet.ref.id"
+        v-for="patternSet in patternSet"
+        v-if="patternSet.isOn"
+        :key="'value'+patternSet.ref.id"
       >
-        <h5>{{ bpSet.ref.label }}</h5>
+        <h5>{{ patternSet.ref.label }}</h5>
         <ul>
           <li
-            v-for="prop in bpSet.ref.props"
+            v-for="prop in patternSet.ref.props"
             :key="prop"
           >
             {{ prop.ref.label }}

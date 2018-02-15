@@ -89,7 +89,8 @@ export default {
   background-color: #dddddd;
   color: black;
   border: none;
-  padding: 3px 15px;
+  width: 30px;
+  height: 10px;
   cursor: pointer;
 }
 
@@ -109,25 +110,25 @@ export default {
   display: none;
   position: absolute;
   background-color: #f1f1f1;
-  width: 180px;
+  width: 60px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
 
 /* Links inside the dropdown */
 .dropdown-content a {
-  color: black;
-  padding: 5px 5px;
-  text-decoration: none;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */
+  width: 30px;
+  height: 10px;
+  float:left;
   display: block;
 }
+.dropdown-content .lightness-box {
+}
 .dropdown-content .color-box {
-  font-weight: bold;
-  color: white;
-  float:left;
-  padding: 5px 5px;
-  width: 60px;
-  height: 30px;
 }
 
 /* Change color of dropdown links on hover */

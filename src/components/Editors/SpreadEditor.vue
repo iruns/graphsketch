@@ -55,67 +55,9 @@ export default {
 
   computed: {
     config () {
-
       const config = this.$store.getters['spread/savedConfig']
-      const itemData = this.$store.getters['item/data']
-      const patterns = this.$store.getters['item/patterns']
-
-      const processedConfig = {}
-
-      if(
-        config &&
-        itemData &&
-        patterns
-      ){
-
-        // process filters
-        processedConfig.filters = {
-          patterns: {},
-          props: {},
-        }
-
-        _.forEach(patterns, (bpProps, bpID) => {
-          processedConfig.filters.patterns[bpID] = {
-            ref: itemData[bpID],
-            props: bpProps,
-            isOn: _.get(config.filters.patterns, [bpID, 'isOn']) != false
-          }
-        })
-
-        // add 'none' pattern for ones with none
-        processedConfig.filters.patterns.none = {
-          ref: {label: 'none', id: 'none'},
-          props: [],
-          isOn: _.get(config.filters.patterns, ['none', 'isOn']) != false
-        }
-
-        // process design
-        processedConfig.design = {
-          patterns: {},
-          props: {},
-        }
-
-        // filter by active patterns
-        _.forEach(
-          processedConfig.filters.patterns,
-          (bpSet, bpId) => {
-
-            if(bpSet.isOn){
-
-              // design
-              // design
-              const design = config.design.patterns[bpId]
-              design.label = bpSet.ref.label
-              design.id = bpSet.ref.id
-
-              processedConfig.design.patterns[bpId] =
-                design
-            }
-          }
-        )
-
-        return processedConfig
-      }
+      if(config)
+        return config
     },
   },
 
@@ -123,7 +65,7 @@ export default {
     toggle (path, deleteIfFalse) {
 
       const value = (_.get(this.config, path) == false)
-      
+
       this.$store.dispatch('spread/setConfig', {
         path: path,
         value: value,

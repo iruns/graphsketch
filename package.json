@@ -4,6 +4,10 @@
   "description": "app for sketching interconnecting graphs",
   "author": "Irun Siregar",
   "private": true,
+  "repository" :{
+    "type" : "git",
+    "url" : "https://github.com/iruns/graphsketch.git"
+  },
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",

@@ -7,6 +7,7 @@
     hover
     @mousedown.left.prevent="startDrag"
     :style="{
+      'z-index': dragged ? 1 : 0,
       transform:
         'translate('+
           position.x +'px,'+
@@ -63,24 +64,33 @@ export default {
     return {
       mouseStart: {x: null, y: null},
       elementStart: {x: null, y: null},
-      dragged: false
+      dragged: false,
+      tweenedPosition: {x: 500, y: 200},
+      twener: null
     }
   },
 
   computed: {
+    targetPosition () {
+      const targetPosition =
+        this.$store.getters['item/targetPositions']
+        [this.$props.itemData.id]
+
+      return targetPosition
+    },
     position () {
-      let position =
+      const position =
         this.$store.getters['item/positions']
         [this.$props.itemData.id]
 
       return position
     },
     savedPosition () {
-      const position =
+      const savedPosition =
         this.$store.getters['spread/itemPositionsBySpread']
         [this.$props.itemData.id]
 
-      return position
+      return savedPosition
     },
     design () {
       let patternId
@@ -105,6 +115,7 @@ export default {
     // add objects to state to setup watchers
     this.$store.dispatch('item/setupItem', {
       id: this.$props.itemData.id,
+      targetPosition: {x: 500, y: 200},
       position: {x: 500, y: 200},
       displayData: {
         item: {
@@ -122,6 +133,7 @@ export default {
 
   mounted () {
     // console.log('mounted');
+    this.repositionFromSaved()
     this.updateDisplayData()
   },
 
@@ -138,7 +150,49 @@ export default {
       // console.log('design');
       this.updateDisplayData()
     },
+    targetPosition (newTargetPosition) {
+      if(
+        newTargetPosition.x != this.position.x ||
+        newTargetPosition.y != this.position.y
+      ){
+        clearTimeout(this.tweener)
+
+        let x,y
+
+        const tick = () => {
+          const distances = {
+            x: newTargetPosition.x - this.position.x,
+            y: newTargetPosition.y - this.position.y,
+          }
+          if(Math.abs(distances.x + distances.y) > 1){
+
+            x = this.position.x + distances.x / 3
+            y = this.position.y + distances.y / 3
+
+            this.tweener = setTimeout(tick, 1000/20)
+          }
+          else{
+            x = newTargetPosition.x
+            y = newTargetPosition.y
+          }
+
+          this.$store.dispatch('item/setPosition', {
+            id: this.$props.itemData.id,
+            data: {x: x, y: y}
+          })
+        }
+        tick()
+      }
+    },
     savedPosition () {
+      this.repositionFromSaved()
+    }
+  },
+
+  methods: {
+
+    repositionFromSaved () {
+
       if(
         this.savedPosition &&
         (
@@ -146,15 +200,12 @@ export default {
           this.savedPosition.y != this.position.y
         )
       ){
-        this.$store.dispatch('item/setPosition', {
+        this.$store.dispatch('item/setTargetPosition', {
           id: this.$props.itemData.id,
           data: this.savedPosition
         })
       }
-    }
-  },
-
-  methods: {
+    },
 
     updateDisplayData () {
 
@@ -202,6 +253,7 @@ export default {
         () => {
           // stop drag
           document.onmousemove = null
+          document.onmouseup = null
 
           // stop drag vars
           this.$store.dispatch('item/drag', false)
@@ -230,7 +282,7 @@ export default {
         (e.screenY - this.$data.mouseStart.y)
       }
 
-      this.$store.dispatch('item/setPosition', {
+      this.$store.dispatch('item/setTargetPosition', {
         id: this.$props.itemData.id,
         data: newPosition
       })

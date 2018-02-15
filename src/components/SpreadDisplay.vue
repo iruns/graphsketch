@@ -51,7 +51,8 @@ export default {
   computed: {
     activeItems () {
 
-      // return ['value_type', 'text']
+      // return ['value_type', 'item', 'prop']
+      // return ['value_type', 'item']
       // return ['value_type']
       // console.log();
 
@@ -78,15 +79,15 @@ export default {
             // else, filter by patterns
             else{
               _.forEach(patterns,
-                (props, bpId) => {
+                (props, patternId) => {
 
                   // if the pattern is used / not defined, activate
                   if(
                     _.get(
                       spreadConfig.filters.patterns,
-                      [bpId, 'isOn']
+                      [patternId, 'isOn']
                     ) != false &&
-                    itemDatum.flatPatterns.includes(bpId)
+                    itemDatum.flatPatterns.includes(patternId)
                   )
                     active = true
 
@@ -128,6 +129,7 @@ export default {
           // this.$store.dispatch('item/drag', false)
           this.$data.dragged = false
           document.onmousemove = null
+          document.onmouseup = null
         }
     },
     drag (e) {
